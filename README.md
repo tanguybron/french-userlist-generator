@@ -3,6 +3,8 @@ french-userlist-generator permet de générer des listes d'utilisateurs françai
 Ces listes peuvent être utilisées pour des tests de force brute. Notamment en les utilisant avec Kerbrute en environnement Active Directory afin d'énumérer des utilisateurs sur le domaine.
 
 
+![image](./images/image.png)
+
 ## Utilisation avec les sources
 
 ```bash
