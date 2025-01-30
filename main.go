@@ -27,11 +27,11 @@ func main() {
 		choice2 := menu2.Display()
 		switch choice2 {
 		case "noms.csv":
-			generate_prenom_point_nom("prenoms.csv", "noms.csv")
+			generate_prenom_point_nom("datasets/prenoms.csv", "datasets/noms.csv")
 		case "noms_big.csv":
-			generate_prenom_point_nom("prenoms.csv", "noms_big.csv")
+			generate_prenom_point_nom("datasets/prenoms.csv", "datasets/noms_big.csv")
 		case "noms_huge.csv":
-			generate_prenom_point_nom("prenoms.csv", "noms_huge.csv")
+			generate_prenom_point_nom("datasets/prenoms.csv", "datasets/noms_huge.csv")
 		}
 	case "nom_prenom":
 		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ?")
@@ -41,11 +41,11 @@ func main() {
 		choice2 := menu2.Display()
 		switch choice2 {
 		case "noms.csv":
-			generate_nom_point_prenom("prenoms.csv", "noms.csv")
+			generate_nom_point_prenom("datasets/prenoms.csv", "datasets/noms.csv")
 		case "noms_big.csv":
-			generate_nom_point_prenom("prenoms.csv", "noms_big.csv")
+			generate_nom_point_prenom("datasets/prenoms.csv", "datasets/noms_big.csv")
 		case "noms_huge.csv":
-			generate_nom_point_prenom("prenoms.csv", "noms_huge.csv")
+			generate_nom_point_prenom("datasets/prenoms.csv", "datasets/noms_huge.csv")
 		}
 	case "p_nom":
 		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ?")
@@ -55,11 +55,11 @@ func main() {
 		choice2 := menu2.Display()
 		switch choice2 {
 		case "noms.csv":
-			generate_1e_lettre_point_nom("prenoms.csv", "noms.csv")
+			generate_1e_lettre_point_nom("datasets/prenoms.csv", "datasets/noms.csv")
 		case "noms_big.csv":
-			generate_1e_lettre_point_nom("prenoms.csv", "noms_big.csv")
+			generate_1e_lettre_point_nom("datasets/prenoms.csv", "datasets/noms_big.csv")
 		case "noms_huge.csv":
-			generate_1e_lettre_point_nom("prenoms.csv", "noms_huge.csv")
+			generate_1e_lettre_point_nom("datasets/prenoms.csv", "datasets/noms_huge.csv")
 		}
 	case "pnom":
 		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ?")
@@ -69,11 +69,11 @@ func main() {
 		choice2 := menu2.Display()
 		switch choice2 {
 		case "noms.csv":
-			generate_1e_lettre_nom("prenoms.csv", "noms.csv")
+			generate_1e_lettre_nom("datasets/prenoms.csv", "datasets/noms.csv")
 		case "noms_big.csv":
-			generate_1e_lettre_nom("prenoms.csv", "noms_big.csv")
+			generate_1e_lettre_nom("datasets/prenoms.csv", "datasets/noms_big.csv")
 		case "noms_huge.csv":
-			generate_1e_lettre_nom("prenoms.csv", "noms_huge.csv")
+			generate_1e_lettre_nom("datasets/prenoms.csv", "datasets/noms_huge.csv")
 		}
 	case "nomp":
 		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ?")
@@ -83,14 +83,13 @@ func main() {
 		choice2 := menu2.Display()
 		switch choice2 {
 		case "noms.csv":
-			generate_nom_1e_lettre("prenoms.csv", "noms.csv")
+			generate_nom_1e_lettre("datasets/prenoms.csv", "datasets/noms.csv")
 		case "noms_big.csv":
-			generate_nom_1e_lettre("prenoms.csv", "noms_big.csv")
+			generate_nom_1e_lettre("datasets/prenoms.csv", "datasets/noms_big.csv")
 		case "noms_huge.csv":
-			generate_nom_1e_lettre("prenoms.csv", "noms_huge.csv")
+			generate_nom_1e_lettre("datasets/prenoms.csv", "datasets/noms_huge.csv")
 		}
 	}
-	deleteDuplicateLines("usernames.txt")
 }
 
 func generate_prenom_point_nom(filename1 string, filename2 string) {
@@ -196,6 +195,7 @@ func generate_1e_lettre_point_nom(filename1 string, filename2 string) {
 	}
 	writer.Flush()
 	fmt.Println("Usernames successfully generated in usernames.txt")
+	deleteDuplicateLines("usernames.txt")
 }
 
 func generate_1e_lettre_nom(filename1 string, filename2 string) {
@@ -231,6 +231,7 @@ func generate_1e_lettre_nom(filename1 string, filename2 string) {
 	}
 	writer.Flush()
 	fmt.Println("Usernames successfully generated in usernames.txt")
+	deleteDuplicateLines("usernames.txt")
 }
 
 func generate_nom_1e_lettre(filename1 string, filename2 string) {
@@ -266,6 +267,7 @@ func generate_nom_1e_lettre(filename1 string, filename2 string) {
 	}
 	writer.Flush()
 	fmt.Println("Usernames successfully generated in usernames.txt")
+	deleteDuplicateLines("usernames.txt")
 }
 
 func readLines(filename string) ([]string, error) {
@@ -292,6 +294,7 @@ func readLines(filename string) ([]string, error) {
 }
 
 func deleteDuplicateLines(filename string) error {
+	fmt.Println("Cleaning wordlist...", filename)
 	lines, err := readLines(filename)
 	if err != nil {
 		return err
