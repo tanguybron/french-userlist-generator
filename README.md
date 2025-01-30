@@ -27,3 +27,5 @@ Des releases sont disponibles pour les systèmes d'exploitation suivants :
 ## Crédits
 
 Utilisation d'une librairie pour avoir un terminal interactif : [https://github.com/Nexidian/gocliselect](https://github.com/Nexidian/gocliselect)
+
+Utilisation d'une librairie pour avoir une progressbar : [https://github.com/schollz/progressbar/v3](https://github.com/schollz/progressbar/v3)

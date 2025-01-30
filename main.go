@@ -7,10 +7,11 @@ import (
 	"strings"
 
 	"github.com/nexidian/gocliselect"
+	"github.com/schollz/progressbar/v3"
 )
 
 func main() {
-	menu1 := gocliselect.NewMenu("Quel format voulez-vous générer ?")
+	menu1 := gocliselect.NewMenu("Quel format voulez-vous générer ? ")
 	menu1.AddItem("PRENOM.NOM (ex : JEAN.DUPONT)", "prenom_nom")
 	menu1.AddItem("NOM.PRENOM (ex : DUPONT.JEAN)", "nom_prenom")
 	menu1.AddItem("P.NOM (ex : J.DUPONT)", "p_nom")
@@ -20,7 +21,7 @@ func main() {
 
 	switch choice {
 	case "prenom_nom":
-		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ?")
+		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ? ")
 		menu2.AddItem("noms.csv", "noms.csv")
 		menu2.AddItem("noms_big.csv", "noms_big.csv")
 		menu2.AddItem("noms_huge.csv", "noms_huge.csv")
@@ -34,7 +35,7 @@ func main() {
 			generate_prenom_point_nom("datasets/prenoms.csv", "datasets/noms_huge.csv")
 		}
 	case "nom_prenom":
-		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ?")
+		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ? ")
 		menu2.AddItem("noms.csv", "noms.csv")
 		menu2.AddItem("noms_big.csv", "noms_big.csv")
 		menu2.AddItem("noms_huge.csv", "noms_huge.csv")
@@ -48,7 +49,7 @@ func main() {
 			generate_nom_point_prenom("datasets/prenoms.csv", "datasets/noms_huge.csv")
 		}
 	case "p_nom":
-		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ?")
+		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ? ")
 		menu2.AddItem("noms.csv", "noms.csv")
 		menu2.AddItem("noms_big.csv", "noms_big.csv")
 		menu2.AddItem("noms_huge.csv", "noms_huge.csv")
@@ -62,7 +63,7 @@ func main() {
 			generate_1e_lettre_point_nom("datasets/prenoms.csv", "datasets/noms_huge.csv")
 		}
 	case "pnom":
-		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ?")
+		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ? ")
 		menu2.AddItem("noms.csv", "noms.csv")
 		menu2.AddItem("noms_big.csv", "noms_big.csv")
 		menu2.AddItem("noms_huge.csv", "noms_huge.csv")
@@ -76,7 +77,7 @@ func main() {
 			generate_1e_lettre_nom("datasets/prenoms.csv", "datasets/noms_huge.csv")
 		}
 	case "nomp":
-		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ?")
+		menu2 := gocliselect.NewMenu("Quel fichier voulez-vous utiliser ? ")
 		menu2.AddItem("noms.csv", "noms.csv")
 		menu2.AddItem("noms_big.csv", "noms_big.csv")
 		menu2.AddItem("noms_huge.csv", "noms_huge.csv")
@@ -112,17 +113,34 @@ func generate_prenom_point_nom(filename1 string, filename2 string) {
 	}
 	defer file.Close()
 
+	var total int64
+	fmt.Println(filename2)
+	switch filename2 {
+	case "datasets/noms.csv":
+		total = 6345456
+	case "datasets/noms_big.csv":
+		total = 12478752
+	case "datasets/noms_huge.csv":
+		total = 136644768
+	default:
+		// Handle unexpected filename2 here (e.g., set a default or return error)
+		total = 6345456 // Default fallback
+	}
+	bar := progressbar.Default(total)
+
 	writer := bufio.NewWriter(file)
 	for _, firstName := range firstNames {
 		for _, lastName := range lastNames {
 			username := fmt.Sprintf("%s%s%s", firstName, ".", lastName)
 			_, err := writer.WriteString(username + "\n")
+			bar.Add(1)
 			if err != nil {
 				fmt.Println("Error writing to file:", err)
 				return
 			}
 		}
 	}
+	bar.Finish()
 	writer.Flush()
 	fmt.Println("Usernames successfully generated in usernames.txt")
 }

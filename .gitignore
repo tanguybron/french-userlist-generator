@@ -7,3 +7,6 @@ releases/Linux_arm64_french-user-generator.zip
 Linux_arm64_french-user-generator
 Linux_amd64_french-user-generator
 DS_Store
+releases/.DS_Store
+releases/
+releases/v0.3/Linux_amd64_french-user-generator.zip
